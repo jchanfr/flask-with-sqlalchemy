@@ -17,6 +17,7 @@ from flask import (
 )
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
+from flask_admin.contrib.sqla import filters
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow # Order is important here!
@@ -33,7 +34,12 @@ from schemas import products_schema,product_schema
 
 # pour ADMIN
 admin = Admin(app, name='lewagon', template_mode='bootstrap3')
+
+# class ProductAdmin(ModelView):
+#     inline_models = (Product,)
+
 admin.add_view(ModelView(Product, db.session))
+
 
 @app.route('/')
 def hello():
