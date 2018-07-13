@@ -15,17 +15,25 @@ from config import Config
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-app = Flask(__name__)
-app.config.from_object(Config)
-
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow # Order is important here!
+
+app = Flask(__name__)
+
+
+app.config.from_object(Config)
+
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
-
 from models import Product
 from schemas import products_schema,product_schema
+
+# pour ADMIN
+admin = Admin(app, name='lewagon', template_mode='bootstrap3')
+admin.add_view(ModelView(Product, db.session))
 
 @app.route('/')
 def hello():
