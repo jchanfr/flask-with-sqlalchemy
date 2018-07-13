@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Produit{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+{% for prod in products %}
+    <article class="post">
+      <header>
+        <div>
+          <h1>{{ prod.id }}</h1>
+          <div class="about">by {{ prod.name }} </div>
+        </div>
+      </header>
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}
